@@ -1,0 +1,108 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Anonymous HTTPS probes of /.well-known/ paths on every host this record knows — the registrable
+  domain and www, the platform SPA host, the Azure API Management gateway host that backs it, the
+  Auth0 custom-domain authorization server it authenticates against, and the documentation CDN.
+note: >-
+  Only app-auth.acin.com serves anything. It is Acin's Auth0 custom domain (issuer
+  "https://app-auth.acin.com/") and publishes OIDC discovery, the RFC 8414 OAuth authorization
+  server metadata, and the signing JWKS. Every other host — including the marketing site and the
+  API gateway — returns 404 on every probed path; www.acin.com answers 404 with a WordPress HTML
+  error page, api.acin.com and apim-prod.acin.com with JSON 404s. No security.txt, no api-catalog,
+  and no ai-plugin.json anywhere.
+hosts:
+- host: acin.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: www.acin.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: app.acin.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: api.acin.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: apim-prod.acin.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: app-auth.acin.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: acin-openid-configuration.json
+    content_type: application/json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: acin-oauth-authorization-server.json
+    content_type: application/json
+  - path: /.well-known/jwks.json
+    status: 200
+    file: acin-jwks.json
+    content_type: application/json
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+- host: acin-documentation-prd01.azureedge.net
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404

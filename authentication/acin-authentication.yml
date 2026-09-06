@@ -1,0 +1,99 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  https://app-auth.acin.com/.well-known/openid-configuration and
+  https://app-auth.acin.com/.well-known/oauth-authorization-server (both HTTP 200, fetched
+  anonymously 2026-09-06), plus the HTTP 401 challenge returned by
+  https://apim-prod.acin.com/v1/gateway-graphql. Acin publishes no OpenAPI, so no securityScheme
+  block could be derived; every statement below is read off a document the provider serves or a
+  live response observed from its gateway.
+note: >-
+  Acin does not run a public developer program, so there is no API-key onboarding, no documented
+  auth guide, and no reference. Access to the platform API is OAuth 2.0 / OIDC through Acin's own
+  Auth0 custom domain, and tokens are issued only to an authenticated tenant user or a registered
+  client. Nothing here was inferred from marketing prose.
+authorization_server:
+  issuer: https://app-auth.acin.com/
+  host: app-auth.acin.com
+  vendor: Auth0 (custom domain on the provider's own registrable domain)
+  discovery:
+  - url: https://app-auth.acin.com/.well-known/openid-configuration
+    status: 200
+    file: well-known/acin-openid-configuration.json
+  - url: https://app-auth.acin.com/.well-known/oauth-authorization-server
+    status: 200
+    file: well-known/acin-oauth-authorization-server.json
+  endpoints:
+    authorization: https://app-auth.acin.com/authorize
+    token: https://app-auth.acin.com/oauth/token
+    userinfo: https://app-auth.acin.com/userinfo
+    jwks: https://app-auth.acin.com/.well-known/jwks.json
+    revocation: https://app-auth.acin.com/oauth/revoke
+    registration: https://app-auth.acin.com/oidc/register
+    device_authorization: https://app-auth.acin.com/oauth/device/code
+    backchannel_authentication: https://app-auth.acin.com/bc-authorize
+    mfa_challenge: https://app-auth.acin.com/mfa/challenge
+schemes:
+- id: oauth2_authorization_code_pkce
+  type: oauth2
+  flow: authorizationCode
+  pkce: true
+  pkce_methods:
+  - S256
+  - plain
+  description: >-
+    The flow the app.acin.com single-page application uses. PKCE is advertised in
+    code_challenge_methods_supported.
+  evidence: https://app-auth.acin.com/.well-known/openid-configuration
+- id: oauth2_client_credentials
+  type: oauth2
+  flow: clientCredentials
+  description: >-
+    Machine-to-machine grant advertised in grant_types_supported; this is the grant a
+    server-to-server integration with the Acin gateway would use. No public documentation states
+    which audiences or scopes are issuable.
+  evidence: https://app-auth.acin.com/.well-known/openid-configuration
+- id: oidc
+  type: openIdConnect
+  openIdConnectUrl: https://app-auth.acin.com/.well-known/openid-configuration
+  description: Full OIDC discovery is published, including userinfo and the signing JWKS.
+  evidence: https://app-auth.acin.com/.well-known/openid-configuration
+- id: bearer_token
+  type: http
+  scheme: bearer
+  bearer_format: JWT
+  description: >-
+    The Azure API Management gateway at apim-prod.acin.com requires an Authorization bearer token.
+    An anonymous request returns HTTP 401 with body
+    {"statusCode":401,"message":"Authorization token is missing or invalid"}.
+  evidence: https://apim-prod.acin.com/v1/gateway-graphql
+grant_types_supported:
+- client_credentials
+- authorization_code
+- refresh_token
+- password
+- implicit
+- urn:ietf:params:oauth:grant-type:device_code
+- urn:ietf:params:oauth:grant-type:token-exchange
+- urn:ietf:params:oauth:grant-type:jwt-bearer
+token_endpoint_auth_methods_supported:
+- client_secret_basic
+- client_secret_post
+- private_key_jwt
+- none
+id_token_signing_alg_values_supported:
+- HS256
+- RS256
+- PS256
+dpop_signing_alg_values_supported:
+- ES256
+mfa: >-
+  An mfa_challenge_endpoint is published and Auth0 MFA grant types
+  (mfa-oob, mfa-otp, mfa-recovery-code) are advertised, so multi-factor authentication is
+  available on the tenant.
+gaps:
+- No public authentication documentation page exists on acin.com or in the published
+  documentation site.
+- No API-key scheme is published; there is no self-service key issuance.
+- The resource server publishes no /.well-known/oauth-protected-resource (probed 404), so an agent
+  cannot discover the authorization server from the API host alone.

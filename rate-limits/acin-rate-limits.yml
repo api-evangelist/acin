@@ -1,0 +1,27 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  A search for published limits across acin.com and the published documentation site (no developer
+  or API reference page exists on either), plus the response headers actually returned by
+  https://apim-prod.acin.com/v1/gateway-graphql on an anonymous request 2026-09-06.
+limit_count: 0
+documented: false
+limits: []
+response_headers:
+  observed: []
+  note: >-
+    The anonymous HTTP 401 from the gateway carries no X-RateLimit-*, RateLimit-* or Retry-After
+    header. Azure API Management, which fronts this API, supports rate-limit and quota policies,
+    but whether any are configured and what they emit cannot be observed without a tenant
+    credential — a throttled response only appears to an authenticated caller.
+exhaustion_status: null
+note: >-
+  No rate limits, quotas, burst allowances or throttling headers are documented anywhere public,
+  because Acin publishes no API reference. An honest zero, not an omission by this pipeline.
+probes:
+- url: https://apim-prod.acin.com/v1/gateway-graphql
+  status: 401
+  note: No rate-limit headers on the response.
+- url: https://www.acin.com/page-sitemap1.xml
+  status: 200
+  note: No developer, API, or limits page exists among the site's 17 public pages.

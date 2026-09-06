@@ -1,0 +1,60 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  scopes_supported in https://app-auth.acin.com/.well-known/openid-configuration (HTTP 200,
+  fetched anonymously 2026-09-06). Acin publishes no OpenAPI and no scopes/permissions reference
+  page, so these are the identity scopes the authorization server advertises — NOT the API
+  permission scopes the apim-prod.acin.com gateway enforces, which are not published anywhere
+  public.
+authorization_server: https://app-auth.acin.com/
+docs: null
+scope_count: 14
+scopes:
+- name: openid
+  description: OIDC — request an ID token.
+  standard: true
+- name: profile
+  description: OIDC standard claim set for the end user's profile.
+  standard: true
+- name: offline_access
+  description: OIDC — request a refresh token.
+  standard: true
+- name: email
+  description: OIDC standard claim — the user's email address.
+  standard: true
+- name: email_verified
+  description: OIDC standard claim — whether the email address is verified.
+  standard: true
+- name: name
+  description: OIDC standard claim — full name.
+  standard: true
+- name: given_name
+  description: OIDC standard claim — given name.
+  standard: true
+- name: family_name
+  description: OIDC standard claim — family name.
+  standard: true
+- name: nickname
+  description: OIDC standard claim — nickname.
+  standard: true
+- name: picture
+  description: OIDC standard claim — profile picture URL.
+  standard: true
+- name: phone
+  description: OIDC standard claim — phone number.
+  standard: true
+- name: address
+  description: OIDC standard claim — postal address.
+  standard: true
+- name: created_at
+  description: Auth0 tenant claim — account creation timestamp.
+  standard: false
+- name: identities
+  description: Auth0 tenant claim — linked identity providers for the user.
+  standard: false
+gaps:
+- >-
+  No API-permission scopes are published. The GraphQL gateway at apim-prod.acin.com rejects
+  anonymous requests with HTTP 401, so the audience and scope values a client would request cannot
+  be observed without a tenant credential.
+- No scopes or permissions reference page exists on any public Acin surface.

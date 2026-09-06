@@ -1,0 +1,30 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  Probes of https://www.acin.com/pricing/, /plans/ and /pricing (all HTTP 404) and a read of the
+  site's own page sitemap https://www.acin.com/page-sitemap1.xml (HTTP 200), which lists every
+  public page and contains no pricing page; plus the Azure Marketplace listing
+  https://azuremarketplace.microsoft.com/en-us/marketplace/apps/acinltd1712061915310.acin (HTTP 200).
+plan_count: 0
+pricing_published: false
+model: enterprise contract, contact sales
+note: >-
+  Acin publishes no pricing of any kind. There is no pricing page, no plan comparison, and no
+  self-service sign-up — the only commercial call to action on acin.com is the contact form at
+  https://www.acin.com/contact/. The company describes its commercial model in its own release
+  notes as an "industry utility model" sold to tier-one banks. The product is also transactable
+  through the Microsoft Azure Marketplace under publisher acinltd, but that listing's plan and
+  price detail is rendered client-side and returned nothing readable to an anonymous fetch, so no
+  plan or price is recorded from it here.
+plans: []
+probes:
+- url: https://www.acin.com/pricing/
+  status: 404
+- url: https://www.acin.com/plans/
+  status: 404
+- url: https://www.acin.com/page-sitemap1.xml
+  status: 200
+  note: 17 public pages listed; none is a pricing page.
+- url: https://azuremarketplace.microsoft.com/en-us/marketplace/apps/acinltd1712061915310.acin
+  status: 200
+  note: Listing exists; plans/price tab is JavaScript-rendered and unreadable to an anonymous fetch.

@@ -1,0 +1,39 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  Registry searches 2026-09-06 — registry.npmjs.org (search "acin": 0 results; @acin/sdk: 404),
+  pypi.org (acin-sdk: 404), rubygems.org (acin: 404), crates.io (no matching crate),
+  nuget.org (5 unrelated hits: acinerella, ACInfinity, AnnexCloud) — plus a search for a GitHub
+  organisation (github.com/acin is an unrelated individual user account, not the company; no
+  api.github.com org exists for acin, acin-ltd or acinltd) and a read of every public page on
+  acin.com, none of which links an SDK, library, or code sample.
+package_count: 0
+official_count: 0
+packages: []
+note: >-
+  Acin publishes no client libraries in any public registry and has no public source repository.
+  This follows from the shape of the business: the product is a tenant-gated web platform sold to
+  tier-one banks, with no developer program and no public API contract for an SDK to wrap. Recorded
+  as a checked zero, not an unchecked gap.
+registries_checked:
+- registry: npm
+  query: acin
+  result: 0 results
+- registry: npm
+  query: '@acin/sdk'
+  result: 404
+- registry: pypi
+  query: acin-sdk
+  result: 404
+- registry: rubygems
+  query: acin
+  result: 404
+- registry: crates.io
+  query: acin
+  result: no matching crate
+- registry: nuget
+  query: acin
+  result: 5 hits, all unrelated third-party packages
+- registry: github
+  query: orgs/acin, orgs/acin-ltd, orgs/acinltd
+  result: 404 — no company organisation; github.com/acin is an unrelated personal account

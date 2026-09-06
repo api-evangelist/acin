@@ -1,0 +1,53 @@
+generated: '2026-09-06'
+method: searched
+source: https://www.acin.com/release-note-sitemap1.xml plus the three release-note pages it lists (each HTTP 200, fetched 2026-09-06)
+name: Acin Release Notes and Product Updates
+url: https://www.acin.com/release-note/acin-release-notes-and-product-updates-q2-2025/
+scheme: quarterly product release notes, published as WordPress posts under /release-note/
+versioning: >-
+  Releases are named by calendar quarter (Q4 2024, Q1 2025, Q2 2025). No semantic version, build
+  number, or dated API version string is published, and the notes describe platform features only —
+  no API, schema, or contract change is recorded in them.
+machine_readable: false
+feed: https://www.acin.com/feed/
+current_version: Q2 2025
+entry_count: 3
+last_entry_date: '2025-07-24'
+staleness_note: >-
+  The most recent release note is Q2 2025, published 2025-07-24 — the quarter Acin was acquired by
+  CUBE (June 2025). No Q3 2025 or later note has been published, and the platform application at
+  app.acin.com now titles itself "CUBE Platform", so the release-note stream appears to have moved
+  to the acquirer.
+entries:
+- version: Q2 2025
+  date: '2025-07-24'
+  url: https://www.acin.com/release-note/acin-release-notes-and-product-updates-q2-2025/
+  breaking: []
+  additions:
+  - In-platform review and management of Acin-identified control gaps, with a consolidated view and an audit trail of how each gap is addressed.
+  - Regulatory Alert PDF — a narrative-style PDF export of a regulatory event under the Dynamic Risk Intelligence module, covering the event summary, client controls mitigating the risks, identified control gaps, and tailored recommendations.
+  highlights: Control-gap workflow inside the platform; shareable out-of-platform regulatory alert PDFs.
+- version: Q1 2025
+  date: '2025-06-02'
+  url: https://www.acin.com/release-note/acin-release-notes-product-updates-q1-2025/
+  breaking: []
+  additions:
+  - Expansion of the Risk Control Quality Enhancement (RCQE) product with new efficiency tools that extract sections, subsections and clauses from policies to create controls, identify inherent risks in procedures, and map process risks to suggested controls.
+  - New control monitoring tools, including AI-generated Key Control Indicators (KCIs) and structured testing scripts aligned to Acin's Data Technical Standard.
+  - AI-driven consolidation of similar controls ("Proliferation") with a Merge Controls tool.
+  - Bespoke regulatory alerts delivered by email.
+  highlights: RCQE expansion, AI-generated KCIs aligned to the DTS, and control de-duplication.
+- version: Q4 2024
+  date: '2025-06-02'
+  url: https://www.acin.com/release-note/our-latest-release/
+  breaking: []
+  additions:
+  - Regulatory Fines Analysis under Dynamic Risk Intelligence — thematic review of fines over $1M from the trailing 12 months, grouped by control and categorised by risk type (conduct failures, financial crime, internal fraud), showing where Acin Index Controls are matched or missing.
+  - 30+ new report templates for reporting on control completeness, quality and efficiency versus peers.
+  - Enhanced search, with results filterable by data type from the search bar.
+  highlights: Regulatory fines thematic analysis, a report-template library, and typed search.
+  note: >-
+    Published at the slug /release-note/our-latest-release/ — the title is Q4 2024 but the slug is
+    generic and the sitemap lastmod is the 2025-06-02 backfill date, not the original publication date.
+gaps:
+- No API changelog, deprecation notice, or contract-version history is published, because no public API contract exists.

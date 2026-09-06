@@ -1,0 +1,51 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://www.acin.com/privacy-policy/ (HTTP 200, section "Security over the internet") and the
+  Drata-hosted trust center Acin links from its own homepage,
+  https://app.drata.com/trust/118b5648-4aaa-42bf-938c-ca51a6f2be37.
+trust_center:
+  url: https://app.drata.com/trust/118b5648-4aaa-42bf-938c-ca51a6f2be37
+  platform: Drata
+  linked_from: https://www.acin.com/ (homepage footer)
+  readable: false
+  http_status: 403
+  read_note: >-
+    Both app.drata.com and trust.acin.com return a Cloudflare interstitial ("Just a moment...")
+    to a non-browser client, so the certifications, subprocessor list and document requests the
+    trust center itself lists could not be read. The page demonstrably exists — Acin links it from
+    its own homepage — so this is a bot challenge, not a dead pointer. The certifications below are
+    taken from Acin's own privacy policy, not from the trust center.
+certifications:
+- name: ISO/IEC 27001
+  status: certified
+  claim: >-
+    "Acin operates an information security management programme that aligns with the ISO 27001
+    standard on information security management and have certified our compliance with this
+    standard."
+  evidence: https://www.acin.com/privacy-policy/
+  evidence_status: 200
+  certificate_published: false
+- name: Cyber Essentials
+  status: accredited
+  claim: '"In addition, Acin has Cyber Essentials accreditation."'
+  evidence: https://www.acin.com/privacy-policy/
+  evidence_status: 200
+  certificate_published: false
+  note: UK NCSC scheme; the privacy policy does not state whether this is Cyber Essentials or Cyber Essentials Plus.
+regulatory_context:
+- name: UK GDPR / EU GDPR
+  role: data controller and processor
+  evidence: https://www.acin.com/privacy-policy/
+  note: >-
+    The privacy policy is written to UK/EU GDPR, covers international transfers outside the EEA/UK,
+    and names a breach-notification procedure. Acin's customers are tier-one banks, so the platform
+    also sits inside their own operational-resilience regimes (e.g. UK PRA/FCA operational
+    resilience, EU DORA), but Acin publishes no statement of its own about those regimes.
+not_found:
+- SOC 2 report or attestation
+- PCI DSS
+- HIPAA
+- FedRAMP
+- A public subprocessor list on acin.com
+- A published penetration-test summary

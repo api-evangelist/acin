@@ -1,0 +1,100 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Observed behaviour of https://apim-prod.acin.com/v1/gateway-graphql (HTTP 401, anonymous,
+  2026-09-06), the discovery documents at https://app-auth.acin.com/.well-known/, the application
+  bundle app.acin.com serves publicly, and the published Data Technical Standards documentation.
+  Acin publishes no API reference or conventions guide, so every field below is either observed or
+  explicitly recorded as unknown.
+note: >-
+  This is a runtime-semantics profile of a gated API. It records what an unauthenticated client can
+  actually establish about calling Acin, which is very little — and says so, rather than inferring
+  conventions the provider has not published.
+transport:
+  style: GraphQL over HTTPS POST
+  endpoint: https://apim-prod.acin.com/v1/gateway-graphql
+  secondary_endpoint: https://apim-prod.acin.com/be-reg/gateway-graphql
+  gateway: Azure API Management
+  content_type: application/json
+auth_style:
+  scheme: OAuth 2.0 bearer JWT
+  authorization_server: https://app-auth.acin.com/
+  header: 'Authorization: Bearer <jwt>'
+  observed_challenge: '{"statusCode":401,"message":"Authorization token is missing or invalid"}'
+  www_authenticate_header: false
+  detail: See authentication/acin-authentication.yml.
+versioning:
+  style: URL path segment
+  current: v1
+  evidence: https://apim-prod.acin.com/v1/gateway-graphql
+  policy_published: false
+pagination:
+  style: unknown
+  detail: >-
+    Not observable. GraphQL connection/cursor conventions are common on this shape of API but
+    nothing is published and introspection is gated, so no claim is made.
+error_envelope:
+  shape: >-
+    Gateway-level errors use the Azure API Management default JSON envelope
+    {"statusCode":<int>,"message":"<string>"}. Application-level GraphQL errors would use the
+    standard GraphQL errors[] array, but that could not be observed.
+  problem_json: false
+  catalog: null
+  detail: See conformance/acin-conformance.yml (rfc9457 conforms false).
+rate_limit_signaling:
+  headers: []
+  detail: None observed on the anonymous 401. See rate-limits/acin-rate-limits.yml.
+request_id_tracing:
+  header: null
+  detail: No correlation or request-id header was returned on the anonymous 401.
+idempotency:
+  coverage: none
+  scope: []
+  mechanism: null
+  detail: >-
+    No Idempotency-Key header, replay-protection mechanism, or retry guidance is published, and
+    none is observable on an anonymous request. Recorded as none rather than na because the API is
+    known to have a write surface: the platform's own release notes describe users creating,
+    rewriting and merging controls through it.
+  evidence: https://apim-prod.acin.com/v1/gateway-graphql
+dry_run_mode:
+  supported: unknown
+  detail: No sandbox, test mode, or dry-run parameter is documented. See the sandbox note below.
+reversibility:
+  grade: unknown
+  detail: >-
+    Acin's platform has a substantial write surface — the Q1 2025 and Q2 2025 release notes
+    describe creating controls from policy documents, rewriting unclear controls, merging duplicate
+    controls, and actioning identified control gaps — and merging or rewriting a bank's control
+    inventory is exactly the class of action an agent would need to know it can undo. No reversal
+    operation, undo, restore, or retention window is documented on any public surface, and the
+    contract that would name one is not published. This is recorded as unknown, not `none` and not
+    `na`: the write surface certainly exists, but nothing public states whether it is reversible,
+    and asserting a window that Acin has not published would be the one error in this pipeline that
+    could cost a user their control inventory.
+  reversal_operations: []
+  windows: []
+  evidence:
+  - url: https://www.acin.com/release-note/acin-release-notes-and-product-updates-q2-2025/
+    status: 200
+    note: '"clients can review and manage potential control gaps ... brings transparency and a clear audit trail in how potential control gaps are being addressed" — an audit trail is recorded, but no reversal operation is named.'
+  - url: https://www.acin.com/release-note/acin-release-notes-product-updates-q1-2025/
+    status: 200
+    note: '"users can seamlessly consolidate redundant controls" (Merge Controls) — a destructive write with no documented undo.'
+  audit_trail:
+    present: true
+    detail: >-
+      The published data model gives every entity an AuditId GUID pointing at an audit
+      change-control record, and the DTS documents a dedicated Audit entity. Change is therefore
+      recorded even where reversal is not documented.
+    evidence: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Audit
+sandbox:
+  published: false
+  detail: No test environment, test credentials, or fixture tooling is published. Non-production hosts referenced in the application bundle (app-int.acin.com, app-preview.acin.com, app-dev-be.acin.com) are internal environments, not a customer sandbox.
+cross_references:
+  authentication: authentication/acin-authentication.yml
+  scopes: scopes/acin-scopes.yml
+  conformance: conformance/acin-conformance.yml
+  lifecycle: lifecycle/acin-lifecycle.yml
+  rate_limits: rate-limits/acin-rate-limits.yml
+  data_model: data-model/acin-data-model.yml

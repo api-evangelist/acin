@@ -1,0 +1,1537 @@
+generated: '2026-09-06'
+method: searched
+source: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/ (33 entity pages fetched
+  2026-09-06, HTTP 200 each)
+ownership_note: acin-documentation-prd01.azureedge.net is Acin's own Azure CDN endpoint — it is named
+  for the company and is declared in the Content-Security-Policy frame-src of Acin's own application at
+  app.acin.com as that application's in-product documentation. The pages are branded "Cube Documentation"
+  because CUBE acquired Acin in June 2025 and the platform at app.acin.com now titles itself "CUBE Platform";
+  this is a parent-brand case, not a different product.
+name: Acin Data Technical Standards (DTS)
+summary: Acin's published data model for non-financial risk. The DTS defines the Process, Risk and Control
+  constructs — plus regulations, regulators, penalties, peer groups and the anonymised benchmarking network
+  — that the Acin platform ingests, standardises and benchmarks against. Most facts are split into a stable
+  Fact record (Id, Code, IsDeleted, IsApproved, AuditId) and a versioned Instance record carrying the
+  descriptive attributes, with the Instance pointing back at its Fact via a <Entity>Id field.
+format: Documented entity/property tables with example JSON payloads; no OpenAPI, JSON Schema or GraphQL
+  SDL is published for it.
+entity_count: 33
+relationship_count: 46
+identifier_convention: GUID surrogate key named Id on every entity (documented as internal, not for external
+  reference); a STRING Code field carries the business identifier.
+audit_convention: Every entity carries AuditId, a GUID reference to an audit change-control record (entity
+  Audit).
+join_entities:
+- BusinessOrganisationRiskInventory
+- ControlBusinessOrganisation
+- ControlProduct
+- ControlRisk
+- ControlRiskInventory
+- NetworkRelationship
+- PenaltyRegulation
+- PenaltyRegulatoryArticle
+- ProcessBusinessOrganisation
+- ProcessRisk
+- RiskInventoryRisk
+- SectorRiskInventory
+relationships:
+- from: BusinessOrganisation
+  to: BusinessOrganisation
+  via: BusinessOrganisationId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: BusinessOrganisation
+  to: Country
+  via: CountryId
+  kind: belongs_to
+- from: BusinessOrganisationRiskInventory
+  to: BusinessOrganisation
+  via: BusinessOrganisationId
+  kind: belongs_to
+- from: BusinessOrganisationRiskInventory
+  to: RiskInventory
+  via: RiskInventoryId
+  kind: belongs_to
+- from: Control
+  to: Control
+  via: ControlId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: ControlBusinessOrganisation
+  to: Control
+  via: ControlId
+  kind: belongs_to
+- from: ControlBusinessOrganisation
+  to: BusinessOrganisation
+  via: BusinessOrganisationId
+  kind: belongs_to
+- from: ControlProduct
+  to: Product
+  via: ProductId
+  kind: belongs_to
+- from: ControlProduct
+  to: Control
+  via: ControlId
+  kind: belongs_to
+- from: ControlRisk
+  to: Control
+  via: ControlId
+  kind: belongs_to
+- from: ControlRisk
+  to: Risk
+  via: RiskId
+  kind: belongs_to
+- from: ControlRiskInventory
+  to: Control
+  via: ControlId
+  kind: belongs_to
+- from: ControlRiskInventory
+  to: RiskInventory
+  via: RiskInventoryId
+  kind: belongs_to
+- from: KCI
+  to: Control
+  via: ControlId
+  kind: belongs_to
+- from: KCI
+  to: KCI
+  via: KCIId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: KRI
+  to: KRI
+  via: KRIId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: KRI
+  to: Risk
+  via: RiskId
+  kind: belongs_to
+- from: NetworkRelationship
+  to: NetworkMember
+  via: ClientNetworkMemberId
+  kind: belongs_to
+- from: NetworkRelationship
+  to: NetworkMember
+  via: AcinNetworkMemberId
+  kind: belongs_to
+- from: NetworkRelationship
+  to: NetworkRelationship
+  via: NetworkRelationshipId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: PeerGroupMember
+  to: PeerGroupMember
+  via: ClientId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: Penalty
+  to: Regulator
+  via: RegulatorId
+  kind: belongs_to
+- from: Penalty
+  to: Penalty
+  via: PenaltyId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: PenaltyRegulation
+  to: Penalty
+  via: PenaltyId
+  kind: belongs_to
+- from: PenaltyRegulation
+  to: Regulation
+  via: RegulationId
+  kind: belongs_to
+- from: PenaltyRegulatoryArticle
+  to: RegulatoryArticle
+  via: RegulatoryArticleId
+  kind: belongs_to
+- from: PenaltyRegulatoryArticle
+  to: Penalty
+  via: PenaltyId
+  kind: belongs_to
+- from: PenaltyTypePenalty
+  to: Regulator
+  via: RegulatorId
+  kind: belongs_to
+- from: Process
+  to: Process
+  via: ProcessId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: ProcessBusinessOrganisation
+  to: Process
+  via: ProcessId
+  kind: belongs_to
+- from: ProcessBusinessOrganisation
+  to: BusinessOrganisation
+  via: BusinessOrganisationId
+  kind: belongs_to
+- from: ProcessRisk
+  to: Process
+  via: ProcessId
+  kind: belongs_to
+- from: ProcessRisk
+  to: Risk
+  via: RiskId
+  kind: belongs_to
+- from: Product
+  to: Product
+  via: ProductId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: Regulation
+  to: Regulator
+  via: RegulatorId
+  kind: belongs_to
+- from: Regulation
+  to: Regulation
+  via: RegulationId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: Regulator
+  to: Regulator
+  via: RegulatorId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: RegulatoryArticle
+  to: Regulation
+  via: RegulationId
+  kind: belongs_to
+- from: RegulatoryArticle
+  to: RegulatoryArticle
+  via: RegulatoryArticleId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: Risk
+  to: Risk
+  via: RiskId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: RiskConsequenceRisk
+  to: Risk
+  via: RiskId
+  kind: belongs_to
+- from: RiskInventory
+  to: RiskInventory
+  via: RiskInventoryId
+  kind: belongs_to
+  note: links the versioned instance record back to its parent fact record
+- from: RiskInventoryRisk
+  to: Risk
+  via: RiskId
+  kind: belongs_to
+- from: RiskInventoryRisk
+  to: RiskInventory
+  via: RiskInventoryId
+  kind: belongs_to
+- from: SectorRiskInventory
+  to: RiskInventory
+  via: RiskInventoryId
+  kind: belongs_to
+- from: SectorRiskInventory
+  to: Sector
+  via: SectorId
+  kind: belongs_to
+entities:
+- name: Audit
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Audit
+  field_count: 0
+  sub_entities: []
+  fields: []
+- name: BusinessOrganisation
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/BusinessOrganisation
+  field_count: 13
+  sub_entities:
+  - BusinessOrganisation
+  - BusinessOrganisationInstance
+  fields:
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: JurisdictionId
+    type: GUID
+    description: ''
+  - name: BusinessOrganisationId
+    type: GUID
+    description: Internal system identifier that indicates related Business Organisation record
+  - name: Version
+    type: INTEGER
+    description: Incremental counter detailing the version of the record
+  - name: CountryId
+    type: GUID
+    description: ''
+  - name: RawJSON
+    type: STRING
+    description: JSON formatted data containing all information received from customer. Can be used to
+      extend record details
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: LegalEntity
+    type: STRING
+    description: ''
+- name: BusinessOrganisationRiskInventory
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/BusinessOrganisationRiskInventory
+  field_count: 9
+  sub_entities:
+  - BusinessOrganisationRiskInventory
+  fields:
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: BusinessOrganisationId
+    type: GUID
+    description: Internal system identifier that indicates related Business Organisation record
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: RiskInventoryId
+    type: GUID
+    description: Internal system identifier that indicates related Risk Inventory record
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+- name: Control
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Control
+  field_count: 28
+  sub_entities:
+  - Control
+  - ControlInstance
+  fields:
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Class
+    type: STRING
+    description: Defines the standard class of control from a pre-defined list
+  - name: Description
+    type: STRING
+    description: 'Control Description provides details on the control design, especially answering the
+      questions:a) WHAT the control is; b) WHO typically operates the control; c) WHEN is the control
+      used/effected; and '
+  - name: RawJSON
+    type: STRING
+    description: JSON formatted data containing all information received from customer. Can be used to
+      extend record details
+  - name: Family
+    type: STRING
+    description: Identifies whether the control is Shared or Specific
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: ControlId
+    type: GUID
+    description: Internal system identifier that indicates related Control record
+  - name: DescriptionReview
+    type: STRING
+    description: States what is being reviewed or monitored (the latter in the case of daily on-going
+      controls)
+  - name: Objective
+    type: STRING
+    description: The Control Objective documents the risk being mitigated and the particular driver that
+      caused the risk to materialise and which the control seeks to prevent or detect.
+  - name: ExecutionFrequency
+    type: STRING
+    description: Defines the typical frequency that the control is executed. Based on a pre-defined list
+  - name: IsNetworked
+    type: BOOLEAN
+    description: ''
+  - name: OwnerTeam
+    type: STRING
+    description: Defines the team who owns and operates the control in this context. This should not be
+      a named individual for the purposes of this data set
+  - name: BusinessImpact
+    type: STRING
+    description: ''
+  - name: TechnicalChangeImplementationStage
+    type: STRING
+    description: ''
+  - name: DescriptionAction
+    type: STRING
+    description: States what is being looked for or identified. [“As per Review” if the identification
+      is implicit in the review activity]
+  - name: Version
+    type: INTEGER
+    description: Incremental counter detailing the version of the record
+  - name: IsSox
+    type: BOOLEAN
+    description: ''
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: Type
+    type: STRING
+    description: ''
+  - name: SupervisorTeam
+    type: STRING
+    description: Defines which team is supervising whether the control is being carried out or performed.
+      This should not be a named individual for the purposes of this data set
+  - name: Automation
+    type: STRING
+    description: ''
+  - name: BusinessProcessMapping
+    type: STRING
+    description: ''
+  - name: DescriptionIdentify
+    type: STRING
+    description: States what action(s) are required to be performed and evidenced, based on these findings,
+      typically to correct or escalate the issue. CUBE use a standardised list of actions because, although
+      individ
+  - name: RelatedPolicies
+    type: STRING
+    description: ''
+- name: ControlBusinessOrganisation
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/ControlBusinessOrganisation
+  field_count: 9
+  sub_entities:
+  - ControlBusinessOrganisation
+  fields:
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: ControlId
+    type: GUID
+    description: Internal system identifier that indicates related Control record
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: BusinessOrganisationId
+    type: GUID
+    description: Internal system identifier that indicates related Business Organisation record
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+- name: ControlKeyword
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/ControlKeyword
+  field_count: 5
+  sub_entities:
+  - Control
+  fields:
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+- name: ControlProduct
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/ControlProduct
+  field_count: 9
+  sub_entities:
+  - ControlProduct
+  fields:
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: ProductId
+    type: GUID
+    description: ''
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: ControlId
+    type: GUID
+    description: Internal system identifier that indicates related Control record
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+- name: ControlRisk
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/ControlRisk
+  field_count: 9
+  sub_entities:
+  - ControlRisk
+  fields:
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: ControlId
+    type: GUID
+    description: Internal system identifier that indicates related Control record
+  - name: RiskId
+    type: GUID
+    description: Internal system identifier that indicates related Risk record
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+- name: ControlRiskInventory
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/ControlRiskInventory
+  field_count: 9
+  sub_entities:
+  - ControlRiskInventory
+  fields:
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: ControlId
+    type: GUID
+    description: Internal system identifier that indicates related Control record
+  - name: RiskInventoryId
+    type: GUID
+    description: Internal system identifier that indicates related Risk Inventory record
+- name: Country
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Country
+  field_count: 5
+  sub_entities:
+  - Country
+  fields:
+  - name: Region
+    type: STRING
+    description: ''
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+- name: KCI
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/KCI
+  field_count: 8
+  sub_entities:
+  - ControlKCIValue
+  - KCI
+  fields:
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: ControlId
+    type: GUID
+    description: Internal system identifier that indicates related Control record
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: KCIId
+    type: GUID
+    description: ''
+  - name: Value
+    type: STRING
+    description: ''
+  - name: EffectiveDateTime
+    type: datetime
+    description: ''
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+- name: KRI
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/KRI
+  field_count: 8
+  sub_entities:
+  - KRI
+  - RiskKRIValue
+  fields:
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: KRIId
+    type: GUID
+    description: ''
+  - name: EffectiveDateTime
+    type: datetime
+    description: ''
+  - name: Value
+    type: STRING
+    description: ''
+  - name: RiskId
+    type: GUID
+    description: Internal system identifier that indicates related Risk record
+- name: NetworkMember
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/NetworkMember
+  field_count: 10
+  sub_entities:
+  - NetworkType
+  - NetworkMember
+  fields:
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: Name
+    type: STRING
+    description: ''
+  - name: ObjectInstanceId
+    type: GUID
+    description: ''
+  - name: NetworkTypeId
+    type: GUID
+    description: ''
+  - name: ObjectId
+    type: GUID
+    description: ''
+  - name: ObjectSourceId
+    type: GUID
+    description: ''
+- name: NetworkRelationship
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/NetworkRelationship
+  field_count: 23
+  sub_entities:
+  - NetworkRelationship
+  - NetworkRelationshipReason
+  - NetworkRelationshipReasonType
+  fields:
+  - name: ClientNetworkMemberId
+    type: GUID
+    description: ''
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: AcinNetworkMemberId
+    type: GUID
+    description: ''
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: NetworkTimestamp
+    type: datetime
+    description: ''
+  - name: NetworkRelationshipReasonTypeId
+    type: GUID
+    description: ''
+  - name: NetworkRelationshipId
+    type: GUID
+    description: ''
+  - name: NetworkRelationshipSMEAssignedReasonTypeId
+    type: GUID
+    description: ''
+  - name: Comment
+    type: STRING
+    description: ''
+  - name: ClientRiskInventoryCode
+    type: STRING
+    description: ''
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: GroupingDescription
+    type: STRING
+    description: ''
+  - name: Name
+    type: STRING
+    description: ''
+  - name: IsMatch
+    type: BOOLEAN
+    description: ''
+  - name: Description
+    type: STRING
+    description: ''
+  - name: GroupingCode
+    type: STRING
+    description: ''
+  - name: PointScore
+    type: decimal
+    description: ''
+  - name: NetworkTypeId
+    type: GUID
+    description: ''
+- name: PeerGroup
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/PeerGroup
+  field_count: 7
+  sub_entities:
+  - PeerGroup
+  fields:
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: Description
+    type: STRING
+    description: ''
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: Name
+    type: STRING
+    description: ''
+- name: PeerGroupMember
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/PeerGroupMember
+  field_count: 13
+  sub_entities:
+  - PeerGroupMemberType
+  - PeerGroupMember
+  fields:
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: Name
+    type: STRING
+    description: ''
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: PeerGroupMemberTypeId
+    type: GUID
+    description: ''
+  - name: RiskInventoryID
+    type: GUID
+    description: Internal system identifier that indicates related Risk Inventory record
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: PeerGroupID
+    type: GUID
+    description: ''
+  - name: ClientId
+    type: GUID
+    description: ''
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+- name: Penalty
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Penalty
+  field_count: 20
+  sub_entities:
+  - Penalty
+  - PenaltyKeyword
+  - PenaltyType
+  fields:
+  - name: PenaltyStatement
+    type: STRING
+    description: ''
+  - name: Description
+    type: STRING
+    description: A statement that gives details about the business record
+  - name: Geography
+    type: STRING
+    description: ''
+  - name: EffectiveDate
+    type: datetime
+    description: ''
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: URL
+    type: STRING
+    description: ''
+  - name: FineValueUSD
+    type: STRING
+    description: ''
+  - name: Country
+    type: STRING
+    description: ''
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: RegulatorId
+    type: GUID
+    description: Internal system identifier that indicates related Regulator record
+  - name: Currency
+    type: STRING
+    description: ''
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: FineValue
+    type: STRING
+    description: ''
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: LinkedRules
+    type: STRING
+    description: ''
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: PenaltyId
+    type: GUID
+    description: ''
+  - name: Keyword
+    type: STRING
+    description: ''
+  - name: KeywordTypeId
+    type: GUID
+    description: ''
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+- name: PenaltyRegulation
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/PenaltyRegulation
+  field_count: 9
+  sub_entities:
+  - PenaltyRegulation
+  fields:
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: PenaltyId
+    type: GUID
+    description: ''
+  - name: RegulationId
+    type: GUID
+    description: Internal system identifier that indicates related Regulation record
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+- name: PenaltyRegulatoryArticle
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/PenaltyRegulatoryArticle
+  field_count: 9
+  sub_entities:
+  - PenaltyRegulatoryArticle
+  fields:
+  - name: RegulatoryArticleId
+    type: GUID
+    description: Internal system identifier that indicates related Regulatory Article record
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: PenaltyId
+    type: GUID
+    description: ''
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+- name: PenaltyTypePenalty
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/PenaltyTypePenalty
+  field_count: 16
+  sub_entities:
+  - Penalty
+  fields:
+  - name: Geography
+    type: STRING
+    description: ''
+  - name: FineValueUSD
+    type: STRING
+    description: ''
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Currency
+    type: STRING
+    description: ''
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Description
+    type: STRING
+    description: A statement that gives details about the business record
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: RegulatorId
+    type: GUID
+    description: Internal system identifier that indicates related Regulator record
+  - name: URL
+    type: STRING
+    description: ''
+  - name: FineValue
+    type: STRING
+    description: ''
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: EffectiveDate
+    type: datetime
+    description: ''
+  - name: Country
+    type: STRING
+    description: ''
+  - name: PenaltyStatement
+    type: STRING
+    description: ''
+  - name: LinkedRules
+    type: STRING
+    description: ''
+- name: Process
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Process
+  field_count: 10
+  sub_entities:
+  - Process
+  - ProcessInstance
+  fields:
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: Version
+    type: INTEGER
+    description: Incremental counter detailing the version of the record
+  - name: Descripiton
+    type: STRING
+    description: ''
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: ProcessId
+    type: GUID
+    description: ''
+- name: ProcessBusinessOrganisation
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/ProcessBusinessOrganisation
+  field_count: 9
+  sub_entities:
+  - ProcessBusinessOrganisation
+  fields:
+  - name: ProcessId
+    type: GUID
+    description: ''
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: BusinessOrganisationId
+    type: GUID
+    description: Internal system identifier that indicates related Business Organisation record
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+- name: ProcessRisk
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/ProcessRisk
+  field_count: 9
+  sub_entities:
+  - ProcessRisk
+  fields:
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: ProcessId
+    type: GUID
+    description: ''
+  - name: RiskId
+    type: GUID
+    description: Internal system identifier that indicates related Risk record
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+- name: Product
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Product
+  field_count: 13
+  sub_entities:
+  - Product
+  - ProductInstance
+  fields:
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: RawJSON
+    type: STRING
+    description: JSON formatted data containing all information received from client. Can be used to extend
+      record details
+  - name: Version
+    type: INTEGER
+    description: Incremental counter detailing the version of the record
+  - name: Type
+    type: STRING
+    description: ''
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: Settlement
+    type: STRING
+    description: ''
+  - name: ProductId
+    type: GUID
+    description: ''
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: Form
+    type: STRING
+    description: ''
+- name: Regulation
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Regulation
+  field_count: 10
+  sub_entities:
+  - Regulation
+  - RegulationInstance
+  fields:
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: RegulatorId
+    type: GUID
+    description: Internal system identifier that indicates related Regulator record
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: Version
+    type: INTEGER
+    description: Incremental counter detailing the version of the record
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: RegulationId
+    type: GUID
+    description: Internal system identifier that indicates related Regulation record
+- name: Regulator
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Regulator
+  field_count: 10
+  sub_entities:
+  - Regulator
+  - RegulatorInstance
+  fields:
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: Version
+    type: INTEGER
+    description: Incremental counter detailing the version of the record
+  - name: RegulatorId
+    type: GUID
+    description: Internal system identifier that indicates related Regulator record
+  - name: Jurisdiction
+    type: STRING
+    description: Defines the various geographic jurisdictions that a regulator operates across
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+- name: RegulatoryArticle
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/RegulatoryArticle
+  field_count: 18
+  sub_entities:
+  - RegulatoryArticle
+  - RegulatoryArticleInstance
+  fields:
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: RegulationId
+    type: GUID
+    description: Internal system identifier that indicates related Regulation record
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Body2
+    type: STRING
+    description: ''
+  - name: RegulatoryArticleId
+    type: GUID
+    description: Internal system identifier that indicates related Regulatory Article record
+  - name: Version
+    type: INTEGER
+    description: Incremental counter detailing the version of the record
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: Body
+    type: STRING
+    description: Defines the body of text contained in the article
+  - name: Body6
+    type: STRING
+    description: ''
+  - name: Body5
+    type: STRING
+    description: ''
+  - name: Body3
+    type: STRING
+    description: ''
+  - name: EffectiveFromDate
+    type: datetime
+    description: ''
+  - name: URL
+    type: STRING
+    description: ''
+  - name: Body4
+    type: STRING
+    description: ''
+  - name: Theme
+    type: STRING
+    description: A theme or thematic trend is a business or firm level focus area that impacts the focus
+      of the business and firm and how it is being run. These themes can apply across different or all
+      businesses, bus
+- name: Risk
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Risk
+  field_count: 20
+  sub_entities:
+  - Risk
+  - RiskConsequence
+  - RiskConsequenceInstance
+  - RiskInstance
+  - RiskKeyword
+  - RiskThreat
+  - RiskThreatInstance
+  fields:
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: Version
+    type: INTEGER
+    description: Incremental counter detailing the version of the record
+  - name: RiskConsequenceId
+    type: GUID
+    description: ''
+  - name: RawJSON
+    type: STRING
+    description: JSON formatted data containing all information received from client. Can be used to extend
+      record details
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: Outcome
+    type: STRING
+    description: Information relating to what the possible outcomes or outputs are of the risk materialising.
+      For example a firm may receive a fine from a regulator if they are in breach of a possible piece
+      of regulat
+  - name: Instrument
+    type: STRING
+    description: ''
+  - name: RiskId
+    type: GUID
+    description: Internal system identifier that indicates related Risk record
+  - name: IsNetworked
+    type: BOOLEAN
+    description: ''
+  - name: Theme
+    type: STRING
+    description: A theme or thematic trend is a business or firm level focus area that impacts the focus
+      of the business and firm and how it is being run. These themes can apply across different or all
+      businesses, bus
+  - name: Driver
+    type: STRING
+    description: These are the drivers that form a risk scenario. The drivers will often combine to form
+      a particular risk scenario. The mapping of drivers to a scenario are many to many.
+  - name: Scenario
+    type: STRING
+    description: A description of a scenario where a risk could occur
+  - name: KeywordTypeId
+    type: GUID
+    description: ''
+  - name: Keyword
+    type: STRING
+    description: ''
+  - name: RiskThreatId
+    type: GUID
+    description: ''
+- name: RiskConsequenceRisk
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/RiskConsequenceRisk
+  field_count: 9
+  sub_entities:
+  - RiskConsequenceRisk
+  fields:
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: RiskId
+    type: GUID
+    description: Internal system identifier that indicates related Risk record
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: RiskConsequenceId
+    type: GUID
+    description: ''
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+- name: RiskInventory
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/RiskInventory
+  field_count: 10
+  sub_entities:
+  - RiskInventory
+  - RiskInventoryInstance
+  fields:
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Version
+    type: INTEGER
+    description: Incremental counter detailing the version of the record
+  - name: Description
+    type: STRING
+    description: A statement that gives details about the business record
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: RiskInventoryId
+    type: GUID
+    description: Internal system identifier that indicates related Risk Inventory record
+- name: RiskInventoryRisk
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/RiskInventoryRisk
+  field_count: 9
+  sub_entities:
+  - RiskInventoryRisk
+  fields:
+  - name: IsLatestVersion
+    type: BOOLEAN
+    description: True/False - Indicates whether this is the most recent record for a business code
+  - name: IsDeleted
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been marked as deleted
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: IsApproved
+    type: BOOLEAN
+    description: True/False - Indicates whether this record has been approved for use
+  - name: EffectiveFromTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid from
+  - name: EffectiveToTimestamp
+    type: datetime
+    description: Timestamp for when the relationship record is valid to
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: RiskId
+    type: GUID
+    description: Internal system identifier that indicates related Risk record
+  - name: RiskInventoryId
+    type: GUID
+    description: Internal system identifier that indicates related Risk Inventory record
+- name: Sector
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/Sector
+  field_count: 4
+  sub_entities:
+  - Sector
+  fields:
+  - name: Name
+    type: STRING
+    description: The business name used as a unique label
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record
+  - name: Code
+    type: STRING
+    description: The business code used as a unique identifier
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+- name: SectorRiskInventory
+  url: https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/SectorRiskInventory
+  field_count: 4
+  sub_entities:
+  - SectorRiskInventory
+  fields:
+  - name: Id
+    type: GUID
+    description: Internal system identifier (NOT TO BE USED FOR EXTERNAL REFERENCE)
+  - name: RiskInventoryId
+    type: GUID
+    description: Internal system identifier that indicates related Risk Inventory record
+  - name: SectorId
+    type: GUID
+    description: ''
+  - name: AuditId
+    type: GUID
+    description: Internal system reference to audit change control record

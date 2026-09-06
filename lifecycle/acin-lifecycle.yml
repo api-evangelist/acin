@@ -1,0 +1,53 @@
+generated: '2026-09-06'
+method: searched
+source: >-
+  https://www.acin.com/terms-conditions/, https://www.acin.com/release-note-sitemap1.xml and the
+  three quarterly release notes (all HTTP 200, 2026-09-06); status-page probe of status.acin.com;
+  probes for a deprecation or versioning policy across acin.com and the published documentation.
+versioning:
+  api_versioning: >-
+    The gateway path carries a version segment — https://apim-prod.acin.com/v1/gateway-graphql —
+    so the API is URL-path versioned at v1. A second path, /be-reg/gateway-graphql, appears in the
+    same application bundle. No versioning policy is published.
+  policy_url: null
+  product_versioning: Quarterly named releases (Q4 2024, Q1 2025, Q2 2025) documented in release notes.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header usage, and no notice period are
+    published. With no public contract there is nothing for a consumer to be deprecated out of, but
+    equally no commitment to an existing integrator.
+status_page:
+  url: null
+  present: false
+  probes:
+  - url: https://status.acin.com/
+    status: 403
+    note: Cloudflare "DNS points to prohibited IP" — a wildcard DNS answer, not a served status page.
+  - url: https://www.acin.com/status/
+    status: 404
+sla:
+  published: false
+  note: >-
+    The public terms and conditions cover website use. Service levels for the platform sit in
+    customer contracts and are not published.
+support:
+  channel: https://www.acin.com/contact/
+  email: null
+lifecycle_stage:
+  stage: acquired
+  detail: >-
+    Acin was acquired by CUBE in June 2025. The marketing site at acin.com is still maintained and
+    the product still ships, but the application at app.acin.com now titles itself "CUBE Platform"
+    and its in-product documentation is branded "Cube Documentation". The last release note is
+    Q2 2025 (2025-07-24); nothing has been published under the Acin brand since.
+  evidence:
+  - url: https://cube.global/resources/news/cube-acquires-leading-ai-operational-risk-provider-acin
+    note: Acquisition announcement, linked from acin.com's own homepage.
+  - url: https://app.acin.com/
+    status: 200
+    note: 'Served HTML <title> is "CUBE Platform"; meta description "Welcome to the CUBE Platform".'

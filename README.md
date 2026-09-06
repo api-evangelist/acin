@@ -64,5 +64,9 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Acin is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/acin_stock/
+Acin is a London-based operational and non-financial risk (NFR) data company for financial services, founded in 2018 and acquired by regulatory-intelligence firm CUBE in June 2025. Its platform standardises a bank's process, risk and control inventories against Acin's published Data Technical Standards and benchmarks them anonymously across a peer network of tier-one banks.
+
+Acin runs no public developer program. There is no OpenAPI, AsyncAPI, GraphQL SDL or SDK, and no pricing, sandbox or status page. The platform API is real but closed: a GraphQL gateway at `https://apim-prod.acin.com/v1/gateway-graphql` behind Azure API Management, which answers any anonymous request — including a GraphQL introspection query — with HTTP 401. What *is* public, and captured here, is Acin's Data Technical Standards data dictionary (33 entities), its Auth0 OIDC/OAuth discovery documents, its quarterly release notes, and its ISO 27001 / Cyber Essentials compliance claims.
+
+- https://www.acin.com/
+- https://acin-documentation-prd01.azureedge.net/docs/intro

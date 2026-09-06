@@ -1,23 +1,122 @@
 aid: acin
 name: Acin
-description: 'Acin is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Acin is a London-based operational and non-financial risk (NFR) data company for financial
+  services, founded in 2018 and acquired by regulatory-intelligence firm CUBE in June 2025. Its
+  platform ingests a bank's process, risk and control inventories, standardises them against Acin's
+  published Data Technical Standards — a documented model of Controls, Risks, Processes, Risk
+  Inventories, Regulations, Regulators and Penalties — and benchmarks them anonymously across a
+  peer network of tier-one banks, turning control assessment from a qualitative exercise into a
+  quantified one. Acin is backed by Barclays, BNP Paribas, Citi, J.P. Morgan, Lloyds Banking Group,
+  Fitch Ventures, Notion Capital and Talis Capital, and is listed on the Microsoft Azure
+  Marketplace. It is delivered as a tenant-gated web platform at app.acin.com backed by an Azure
+  API Management GraphQL gateway; there is no public developer program or machine-readable
+  contract.
+image: https://www.acin.com/wp-content/uploads/2024/02/icon-1x1-1-300x300.png
 url: https://raw.githubusercontent.com/api-evangelist/acin/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-09-06'
 modified: '2026-09-06'
 tags:
 - Company
-apis: []
+- Operational Risk
+- Risk Management
+- Non-Financial Risk
+- Financial Services
+- Banking
+- Compliance
+- Regulatory Technology
+- Benchmarking
+- Data Standards
+apis:
+- aid: acin:acin-platform-graphql-gateway
+  name: Acin Platform GraphQL Gateway
+  description: >-
+    The GraphQL gateway that backs the Acin / CUBE Platform web application. It is served from
+    Acin's own Azure API Management instance at apim-prod.acin.com and is referenced by name in the
+    application bundle that app.acin.com serves publicly. Every request requires an OAuth 2.0
+    bearer token issued by Acin's Auth0 tenant at app-auth.acin.com; an anonymous request — GET or
+    a POST carrying a GraphQL introspection query — returns HTTP 401
+    {"statusCode":401,"message":"Authorization token is missing or invalid"}. No schema, SDL, or
+    reference for this endpoint is published anywhere public, so the surface is recorded here as
+    observed and gated, not described. Acin publishes no OpenAPI, AsyncAPI, or GraphQL SDL.
+  humanURL: https://acin-documentation-prd01.azureedge.net/docs/intro
+  baseURL: https://apim-prod.acin.com/v1/gateway-graphql
+  image: https://www.acin.com/wp-content/uploads/2024/02/icon-1x1-1-300x300.png
+  position: Producing
+  tags:
+  - Operational Risk
+  - Risk Management
+  - GraphQL
+  properties:
+  - type: Documentation
+    url: https://acin-documentation-prd01.azureedge.net/docs/intro
+  - type: Authentication
+    url: authentication/acin-authentication.yml
+  - type: OAuthScopes
+    url: scopes/acin-scopes.yml
+  - type: DataModel
+    url: data-model/acin-data-model.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/acin-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/acin_stock/
+  url: https://www.acin.com/
+- type: About
+  url: https://www.acin.com/company/about/
+- type: Documentation
+  url: https://acin-documentation-prd01.azureedge.net/docs/intro
+- type: Login
+  url: https://app.acin.com/
+- type: Support
+  url: https://www.acin.com/contact/
+- type: Blog
+  url: https://www.acin.com/resources/news/
+- type: BlogRSS
+  url: https://www.acin.com/feed/
+- type: TermsOfService
+  url: https://www.acin.com/terms-conditions/
+- type: PrivacyPolicy
+  url: https://www.acin.com/privacy-policy/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/acin-ltd
+- type: TrustCenter
+  url: security/acin-trust-center.yml
+- type: ChangeLog
+  url: https://www.acin.com/release-note/acin-release-notes-and-product-updates-q2-2025/
+- type: WellKnown
+  url: well-known/acin-well-known.yml
+- type: Authentication
+  url: authentication/acin-authentication.yml
+- type: OAuthScopes
+  url: scopes/acin-scopes.yml
+- type: Conformance
+  url: conformance/acin-conformance.yml
+- type: Compliance
+  url: security/acin-trust-center.yml
+- type: DataModel
+  url: data-model/acin-data-model.yml
+- type: Conventions
+  url: conventions/acin-conventions.yml
+- type: Lifecycle
+  url: lifecycle/acin-lifecycle.yml
+- type: Plans
+  url: plans/acin-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/acin-rate-limits.yml
+- type: LLMsTxt
+  url: llms/acin-llms.txt
+- type: ChangeLog
+  url: changelog/acin-changelog.yml
+x-enrichment:
+  date: '2026-09-06'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v3

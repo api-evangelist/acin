@@ -1,0 +1,109 @@
+generated: '2026-09-06'
+method: probed
+source: >-
+  Live anonymous probes 2026-09-06 of https://app-auth.acin.com/.well-known/openid-configuration,
+  /.well-known/oauth-authorization-server and /.well-known/jwks.json (all HTTP 200), and of
+  https://apim-prod.acin.com/v1/gateway-graphql (HTTP 401), plus a read of the published Data
+  Technical Standards documentation at
+  https://acin-documentation-prd01.azureedge.net/docs/DataTechnicalStandards/.
+note: >-
+  Acin publishes no OpenAPI, AsyncAPI, GraphQL SDL or JSON Schema, so every conformance statement
+  below is asserted against a document the provider actually serves or a response actually
+  observed. Nothing is derived from marketing prose.
+conformance:
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: https://app-auth.acin.com/.well-known/openid-configuration
+  detail: >-
+    Authorization, token, revocation and device-code endpoints are published; grant_types_supported
+    includes authorization_code, client_credentials, refresh_token and device_code.
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: https://app-auth.acin.com/.well-known/openid-configuration
+  detail: >-
+    A complete OIDC discovery document is served from the provider's own registrable domain, with
+    issuer, jwks_uri, userinfo_endpoint, claims_supported and id_token signing algorithms.
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+  conforms: true
+  evidence: https://app-auth.acin.com/.well-known/oauth-authorization-server
+  detail: Served at the RFC 8414 path, HTTP 200, identical metadata document.
+- id: rfc7636
+  name: PKCE (RFC 7636)
+  conforms: true
+  evidence: https://app-auth.acin.com/.well-known/openid-configuration
+  detail: code_challenge_methods_supported advertises S256 and plain.
+- id: rfc7517
+  name: JSON Web Key Set (RFC 7517)
+  conforms: true
+  evidence: https://app-auth.acin.com/.well-known/jwks.json
+  detail: RSA signing keys published with kid, x5c chain and RS256 alg.
+- id: rfc6750
+  name: OAuth 2.0 Bearer Token Usage (RFC 6750)
+  conforms: partial
+  evidence: https://apim-prod.acin.com/v1/gateway-graphql
+  detail: >-
+    The gateway requires an Authorization bearer token, but an anonymous request returns HTTP 401
+    with a bare JSON body and no WWW-Authenticate challenge header, so a client cannot discover the
+    realm, scope or authorization server from the response.
+- id: rfc9728
+  name: OAuth 2.0 Protected Resource Metadata (RFC 9728)
+  conforms: false
+  evidence: https://apim-prod.acin.com/.well-known/oauth-protected-resource
+  detail: HTTP 404. The API host does not advertise its authorization server.
+- id: graphql
+  name: GraphQL
+  conforms: partial
+  evidence: https://apim-prod.acin.com/v1/gateway-graphql
+  detail: >-
+    A GraphQL gateway endpoint exists and is named in the application bundle app.acin.com serves,
+    but introspection is auth-gated (HTTP 401) and no SDL is published, so conformance to the
+    specification could not be verified and no schema is recorded.
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  evidence: https://apim-prod.acin.com/openapi.json
+  detail: >-
+    HTTP 404. No OpenAPI or Swagger document was found on any host — acin.com, www.acin.com,
+    app.acin.com, api.acin.com, apim-prod.acin.com or the documentation CDN.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: https://www.acin.com/
+  detail: No event, streaming or webhook surface is documented anywhere public.
+- id: rfc9457
+  name: Problem Details for HTTP APIs (RFC 9457)
+  conforms: false
+  evidence: https://apim-prod.acin.com/v1/gateway-graphql
+  detail: >-
+    The only observable error envelope is the Azure API Management default,
+    {"statusCode":401,"message":"..."} — not application/problem+json.
+- id: rfc8594
+  name: Sunset header (RFC 8594)
+  conforms: false
+  evidence: https://www.acin.com/release-note/acin-release-notes-and-product-updates-q2-2025/
+  detail: No deprecation or sunset policy is published.
+domain_standard:
+  declared: false
+  detail: >-
+    Acin's market — bank operational and non-financial risk — does have industry reference
+    taxonomies (ORX for operational-risk loss and taxonomy exchange, the Basel operational-risk
+    event-type categories). Acin's published Data Technical Standards documentation names none of
+    them: it presents the DTS as its own industry-sourced standard, defined and maintained by the
+    company for its client network. No external domain standard is declared in the contract or in
+    the data dictionary, and none is asserted here.
+  probed:
+  - https://acin-documentation-prd01.azureedge.net/docs/intro
+  - https://acin-documentation-prd01.azureedge.net/docs/BusinessConcepts/Glossary
+  - https://acin-documentation-prd01.azureedge.net/docs/BusinessConcepts/Risks
+first_party_standard:
+  name: Acin Data Technical Standards (DTS)
+  url: https://acin-documentation-prd01.azureedge.net/docs/intro
+  detail: >-
+    A first-party, publicly documented data standard for non-financial risk covering 33 entities
+    (Control, Risk, Process, RiskInventory, Regulation, Regulator, Penalty, PeerGroup,
+    NetworkMember and their join entities), each with typed properties and example JSON. It is a
+    data model, not an API contract — no schema file is published for it.
+  captured: data-model/acin-data-model.yml
