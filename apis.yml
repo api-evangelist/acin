@@ -28,10 +28,10 @@ tags:
 - Operational Risk
 - Risk Management
 - Non-Financial Risk
-- Financial-Services
+- Financial Services
 - Banking
 - Compliance
-- Regulatory Technology
+- RegTech
 - Benchmarking
 - Data Standards
 tags_raw:
@@ -45,6 +45,7 @@ tags_raw:
 - Regulatory Technology
 - Benchmarking
 - Data Standards
+- Financial-Services
 apis:
 - aid: acin:acin-platform-graphql-gateway
   name: Acin Platform GraphQL Gateway
