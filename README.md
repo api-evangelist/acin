@@ -64,9 +64,110 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Acin is a London-based operational and non-financial risk (NFR) data company for financial services, founded in 2018 and acquired by regulatory-intelligence firm CUBE in June 2025. Its platform standardises a bank's process, risk and control inventories against Acin's published Data Technical Standards and benchmarks them anonymously across a peer network of tier-one banks.
+Acin is a London-based operational and non-financial risk (NFR) data company for financial services, founded in 2018 and acquired by regulatory-intelligence firm CUBE in June 2025. Its platform ingests a bank's process, risk and control inventories, standardises them against Acin's published Data Technical Standards — a documented model of Controls, Risks, Processes, Risk Inventories, Regulations, Regulators and Penalties — and benchmarks them anonymously across a peer network of tier-one banks, turning control assessment from a qualitative exercise into a quantified one. Acin is backed by Barclays, BNP Paribas, Citi, J.P. Morgan, Lloyds Banking Group, Fitch Ventures, Notion Capital and Talis Capital, and is listed on the Microsoft Azure Marketplace. It is delivered as a tenant-gated web platform at app.acin.com backed by an Azure API Management GraphQL gateway; there is no public developer program or machine-readable contract.
 
-Acin runs no public developer program. There is no OpenAPI, AsyncAPI, GraphQL SDL or SDK, and no pricing, sandbox or status page. The platform API is real but closed: a GraphQL gateway at `https://apim-prod.acin.com/v1/gateway-graphql` behind Azure API Management, which answers any anonymous request — including a GraphQL introspection query — with HTTP 401. What *is* public, and captured here, is Acin's Data Technical Standards data dictionary (33 entities), its Auth0 OIDC/OAuth discovery documents, its quarterly release notes, and its ISO 27001 / Cyber Essentials compliance claims.
+**Areas:** Company · Operational Risk · Risk Management · Non-Financial Risk · Financial Services · Banking · Compliance · RegTech · Benchmarking · Data Standards
 
-- https://www.acin.com/
-- https://acin-documentation-prd01.azureedge.net/docs/intro
+## Acin on APIs.io
+
+Everything profiled for Acin is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/acin/](https://apis.io/providers/acin/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Acin Platform GraphQL Gateway](https://apis.io/apis/acin/acin-platform-graphql-gateway/) — The GraphQL gateway that backs the Acin / CUBE Platform web application. It is served from Acin's own Azure API Management instance at apim-prod.acin.com…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Acin Authentication](https://apis.io/security/acin/acin-authentication/)
+- [Acin Domain Security](https://apis.io/security/acin/acin-domain-security/)
+- [Acin Trust Center](https://apis.io/security/acin/acin-trust-center/)
+- [Acin Vulnerability Disclosure](https://apis.io/security/acin/acin-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Acin Scopes](https://apis.io/scopes/acin/acin-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Acin Plans Pricing](https://apis.io/plans/acin/acin-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Acin Rate Limits](https://apis.io/rate-limits/acin/acin-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.acin.com/)
+- [Documentation](https://acin-documentation-prd01.azureedge.net/docs/intro)
+- [Support](https://www.acin.com/contact/)
+- [Changelog](https://www.acin.com/release-note/acin-release-notes-and-product-updates-q2-2025/)
+- [Blog](https://www.acin.com/resources/news/)
+- [Terms of service](https://www.acin.com/terms-conditions/)
+- [Privacy policy](https://www.acin.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 27.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 43.4 |
+
+**Agent readiness 17.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+
+**Regulatory alignment 37.0** — Banking & Open Finance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/acin/](https://apis.io/providers/acin/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Acin: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/acin/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
